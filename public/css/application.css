@@ -1,0 +1,172 @@
+html { 
+  height: 100% 
+}
+
+body { 
+  font-family: 'Open Sans', sans-serif;
+  color: #222;
+  height: 100%; margin: 0; padding: 0 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container {
+  height: 100%;
+  position: relative;
+  text-align: center;
+}
+
+#map-canvas { 
+  float: left;  
+  width: 100%;
+  height: 100%;
+}
+
+input {
+  z-index: 1;
+  top: 5%;
+  position: absolute;
+  margin-left: -300px;
+  height: 80px;
+  width: 600px;
+  border: 5px solid steelblue;
+  box-shadow: 0 0 15px steelblue;
+  text-align: center;
+  font-size: 30px;
+  border-radius: 50px;
+  text-shadow: 0 0 3px gray;
+}
+
+form:focus, input:focus {
+  outline: 0;
+}
+
+#directions_and_waypoints {
+  z-index: 1;
+  background-color: white;
+  opacity: 0.9;
+  position: fixed;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  color: #666;
+  box-shadow: 0 0 50px steelblue;
+  padding-top: 20px;
+  text-shadow: 0 0 1px #666;
+}
+
+.green {
+  color: #009900;
+  text-shadow: 0 0 1px #009900;
+}
+
+#waypoints {
+  margin-top: 50px;
+}
+
+#waypoints div {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 5px;
+  overflow: hidden;
+  color: white;
+  background-color: teal;
+  opacity: 1.0;
+  margin: 10px 10px;
+  border: 2px outset #888;
+  border-radius: 15px;
+  box-shadow: 0 0 5px steelblue;
+}
+
+h1, h2 {
+  margin: 15px 15px;
+  height: 50px;
+  color: #A8A8A8;
+  text-shadow: 0 0 5px #A8A8A8;
+  line-height: 50px;
+  border-radius: 30px;
+  border: 2px inset steelblue;
+  box-shadow: 0 0 5px steelblue;
+}
+
+#calculate {
+  color: #444;
+  font-weight: 600px;
+  border-radius: 5px;
+  border: 3px outset #888;
+  
+  background-image: linear-gradient(bottom, rgb(195,222,213) 38%, rgb(255,255,255) 69%, rgb(235,240,239) 85%);
+  background-image: -o-linear-gradient(bottom, rgb(195,222,213) 38%, rgb(255,255,255) 69%, rgb(235,240,239) 85%);
+  background-image: -moz-linear-gradient(bottom, rgb(195,222,213) 38%, rgb(255,255,255) 69%, rgb(235,240,239) 85%);
+  background-image: -webkit-linear-gradient(bottom, rgb(195,222,213) 38%, rgb(255,255,255) 69%, rgb(235,240,239) 85%);
+  background-image: -ms-linear-gradient(bottom, rgb(195,222,213) 38%, rgb(255,255,255) 69%, rgb(235,240,239) 85%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.38, rgb(195,222,213)),
+    color-stop(0.69, rgb(255,255,255)),
+    color-stop(0.85, rgb(235,240,239))
+  );
+}
+
+#calculate:hover {
+  background-image: linear-gradient(bottom, rgb(130,204,175) 37%, rgb(238,240,211) 69%, rgb(205,235,228) 85%);
+  background-image: -o-linear-gradient(bottom, rgb(130,204,175) 37%, rgb(238,240,211) 69%, rgb(205,235,228) 85%);
+  background-image: -moz-linear-gradient(bottom, rgb(130,204,175) 37%, rgb(238,240,211) 69%, rgb(205,235,228) 85%);
+  background-image: -webkit-linear-gradient(bottom, rgb(130,204,175) 37%, rgb(238,240,211) 69%, rgb(205,235,228) 85%);
+  background-image: -ms-linear-gradient(bottom, rgb(130,204,175) 37%, rgb(238,240,211) 69%, rgb(205,235,228) 85%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.37, rgb(130,204,175)),
+    color-stop(0.69, rgb(238,240,211)),
+    color-stop(0.85, rgb(205,235,228))
+  );
+}
+
+#calculate:active {
+  background-image: linear-gradient(bottom, rgb(99,194,156) 37%, rgb(232,235,191) 69%, rgb(175,224,196) 85%);
+  background-image: -o-linear-gradient(bottom, rgb(99,194,156) 37%, rgb(232,235,191) 69%, rgb(175,224,196) 85%);
+  background-image: -moz-linear-gradient(bottom, rgb(99,194,156) 37%, rgb(232,235,191) 69%, rgb(175,224,196) 85%);
+  background-image: -webkit-linear-gradient(bottom, rgb(99,194,156) 37%, rgb(232,235,191) 69%, rgb(175,224,196) 85%);
+  background-image: -ms-linear-gradient(bottom, rgb(99,194,156) 37%, rgb(232,235,191) 69%, rgb(175,224,196) 85%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.37, rgb(99,194,156)),
+    color-stop(0.69, rgb(232,235,191)),
+    color-stop(0.85, rgb(175,224,196))
+  );
+}
+
+.draggable_hover {
+  box-shadow: 0 0 15px steelblue;
+  font-weight: 800;
+  color: #444;
+}
+
+div#undo_selection {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 5px;
+  background-color: white;
+  margin: 10px 10px;
+  border: 2px dotted #A8A8A8;
+  color: #A8A8A8;
+  border-radius: 15px;
+  box-shadow: none;
+}
+
+a {
+  text-decoration: none;
+}
