@@ -31,5 +31,6 @@ post '/waypoints/set_last_waypoint' do
 end
 
 get '/waypoints/get_directions' do
-  "DIRECTIONS!!"
+  content_type :json
+  p Waypoint.all.map { |waypoint| [waypoint.address, waypoint.lat, waypoint.lng] }
 end

@@ -23,10 +23,12 @@ function initialize() {
       beforeSend: function(directions) { 
         $('#directions_and_waypoints').html("Thinking..."); 
       },
-      success: function(directions) { 
-        $('#directions_and_waypoints').html(directions);
-        var latLngArray
-      }
+      success: function(latLngArray) { 
+        $('#directions_and_waypoints').html("SUCCESS");
+        console.log(latLngArray);
+      },
+      timeOut: 5000,
+      error: function() { $('#directions_and_waypoints').html('DAMNIT') }
     });
   });
 
