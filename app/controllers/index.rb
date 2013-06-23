@@ -21,16 +21,18 @@ get '/waypoints/all' do
 end
 
 post '/waypoints/set_first_waypoint' do
-  puts "First waypoint:"
-  puts Waypoint.find_by_address(params[:address])
+  Waypoint.find_by_address(params[:address]).update_attributes(first: 1)
 end
 
 post '/waypoints/set_last_waypoint' do
-  puts "Last waypoint:"
-  puts params[:address]
+  Waypoint.find_by_address(params[:address]).update_attributes(last: 1)
 end
 
-get '/waypoints/get_directions' do
+get '/waypoints/order' do
   content_type :json
-  p Waypoint.all.map { |waypoint| [waypoint.address, waypoint.lat, waypoint.lng] }
+  { 
+    first: Waypoint.find_by_first(1),
+    waypoints: Waypoint.where(first: 0, last: 0),
+    last: Waypoint.find_by_last(1)
+  }.to_json
 end

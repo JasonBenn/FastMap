@@ -1,4 +1,5 @@
 var map;
+var markersArray = [];
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -19,32 +20,98 @@ function initialize() {
 
   $('#get_directions').click(function(event) {
     event.preventDefault();
-    $.ajax('/waypoints/get_directions', {
+    var prom;
+
+    $.ajax('/waypoints/order', {
       beforeSend: function(directions) { 
-        $('#directions_and_waypoints').html("Thinking..."); 
+        animateFadeInputs();
       },
-      success: function(latLngArray) { 
-        $('#directions_and_waypoints').html("SUCCESS");
-        console.log(latLngArray);
-      },
-      timeOut: 5000,
-      error: function() { $('#directions_and_waypoints').html('DAMNIT') }
-    });
-  });
+      success: function(latLngArray) {         
+        clearMarkers();
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('google_directions'));
+
+        var request = buildRequest(latLngArray);
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+          }
+        });
+        animateReveal();
+      }, // end success function
+    }); // end AJAX call to order waypoints
+  }); // end get directions click listener
 
   setDroppableAndDraggable();
 };
 
-function buildDirectionsRequest() {
-
+function buildRequest(latLngArray) {
+  return {
+    origin: latLngArray.first.waypoint.address,
+    destination: latLngArray.last.waypoint.address,
+    waypoints: buildAddressArray(latLngArray),
+    optimizeWaypoints: true,
+    travelMode: google.maps.DirectionsTravelMode.DRIVING
+  }
 };
+
+function buildAddressArray(latLngArray) {
+  addressArray = latLngArray.waypoints.map(function(e) { return { 
+    location: e.waypoint.address,
+    stopover: true
+    }
+  });
+};
+
+function animateFadeInputs() {
+  $('#directions_and_waypoints').animate({
+    'opacity': 0
+  }, 1000)
+
+  $('#map-canvas').animate({
+    'width': '68%'
+  }, 1000, function() { google.maps.event.trigger(map, "resize"); });
+
+  prom = $('input').animate({
+    'opacity': 0
+  }, 1000);
+
+  $('#google_directions').animate({
+    'right': '0%',
+  }, 1000);
+}
+
+function animateReveal() {
+  $('#google_directions').animate({
+    'color': '#444',
+    'opacity': 1,
+    'background-color': 'white'
+  }, 1000);
+
+  $('#google_directions .adp-substep').animate({
+    'border-top-color': '#cdcdcd'
+  }, 1000);
+
+  $('tbody img').animate({
+    'opacity': 1
+  }, 1000);
+}
 
 function dropWaypoint(latLng, latLngHasMethods) {
   translateLatLngToAddress(latLng);
   map.panTo(latLng);
   var markerOptions = buildMarkerOptions( {position: latLng} )
-  new google.maps.Marker(markerOptions);
+  marker = new google.maps.Marker(markerOptions);
+  markersArray.push(marker);
   rebuildWaypoints();
+}
+
+function clearMarkers() {
+  for (i in markersArray) {
+    markersArray[i].setMap(null);
+  }
 }
 
 function rebuildWaypoints() {
@@ -55,6 +122,7 @@ function rebuildWaypoints() {
       $('.draggable').draggable({
         revert: 'invalid',
         snap: 'h2',
+        snapTolerance: 50,
         snapMode: "inner",
         cursorAt: { top: 26, left: 182 }
       });
@@ -74,8 +142,8 @@ function buildMarkerOptions(customOptions) {
 
 function buildMapOptions(customOptions) {
   return $.extend(customOptions, {
-    center: new google.maps.LatLng(-22.909700912054472, -43.17523956298828),
-    zoom: 14,
+    center: new google.maps.LatLng(55.797228397339055, 12.368545532226562),
+    zoom: 13,
     mapTypeId: google.maps.MapTypeId.HYBRID
   });
 };
@@ -128,17 +196,3 @@ function setDroppableAndDraggable() {
     $.post('/waypoints/set_last_waypoint', { address: eventInfo.draggable.text() } );
   });
 };
-
-
-
-// Version 2: Div on the right that has two drop down menu that allows user to choose
-// the coordinates that should be first and last. Design: where do buttons go? What
-// do buttons read? FIRST, LAST, GO!
-// Version 3: submit first, waypoints, last: print directions on right. Uses DirectionsResult
-// Version 4: draw lines between points.
-// Version 5: Map re-centers automatically after every point addition. Read about zoom level.
-// Version 6: Deploy to Heroku
-// Version 7: Styles!!
-// Version 8: Link on directions to print-friendly styles!!
-// After this: put it on website.
-// Traveling salesman problem
