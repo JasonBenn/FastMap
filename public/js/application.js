@@ -58,9 +58,10 @@ function buildRequest(latLngArray) {
 };
 
 function buildAddressArray(latLngArray) {
-  addressArray = latLngArray.waypoints.map(function(e) { return { 
-    location: e.waypoint.address,
-    stopover: true
+  return latLngArray.waypoints.map(function(e) { 
+    return { 
+      location: e.waypoint.address,
+      stopover: true
     }
   });
 };

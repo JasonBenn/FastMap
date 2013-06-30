@@ -21,6 +21,7 @@ get '/waypoints/all' do
 end
 
 post '/waypoints/set_first_waypoint' do
+  # Waypoint.find_by_address(params[:address]).update_attributes(first: 1)
   Waypoint.find_by_address(params[:address]).update_attributes(first: 1)
 end
 
