@@ -4,6 +4,8 @@ var markersArray = [];
 google.maps.event.addDomListener(window, 'load', initialize);
 
 function initialize() {
+  hideMapTime(1500);
+
   $.post('/reset_waypoints')
   map = new google.maps.Map(document.getElementById("map-canvas"), buildMapOptions()); 
   
@@ -196,4 +198,12 @@ function setDroppableAndDraggable() {
   $('h2#last_waypoint').on('drop', function(event, eventInfo) { 
     $.post('/waypoints/set_last_waypoint', { address: eventInfo.draggable.text() } );
   });
+};
+
+function hideMapTime(timing) {
+  setTimeout(function() {
+    $('#maptime').animate({'opacity': 0}, 300, function() {
+      $('#maptime').css({'z-index': '-1'});
+    });
+  }, timing);
 };
