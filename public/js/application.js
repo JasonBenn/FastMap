@@ -125,9 +125,12 @@ function rebuildWaypoints() {
       $('.draggable').draggable({
         revert: 'invalid',
         snap: 'h2',
-        snapTolerance: 50,
+        snapTolerance: 30,
         snapMode: "inner",
-        cursorAt: { top: 26, left: 182 }
+        cursorAt: { top: 26, left: 182 },
+        scroll: false,
+        zIndex: 100,
+        appendTo: '#directions_and_waypoints'
       });
       $('.droppable').droppable({
         activeClass: "draggable_hover"
