@@ -36,11 +36,12 @@ body {
 
 h1#about {
   color: #222;
-  box-shadow: 0 0 10px ;
-  height: 50px;
-  line-height: 50px;
   text-align: center;
-  margin-bottom: 20px;
+  box-shadow: none;
+  font-size: 90px;
+  word-spacing: 20px;
+  margin-bottom: 50px;
+  font-family: 'Londrina Shadow', cursive;
 }
 
 #map-canvas { 
@@ -164,6 +165,7 @@ a#about-goto-app {
   line-height: 50px;
 }
 
+
 .draggable_hover {
   box-shadow: 0 0 15px #4D9221;
   font-weight: 800;
@@ -179,4 +181,26 @@ div#undo_selection {
 
 a {
   text-decoration: none;
+}
+
+h4 a {
+  font-size: 15px;
+  color: #A8A8A8;
+}
+
+h4 a:hover {
+  text-decoration: underline;
+}
+
+#maptime {
+  font-family: 'Londrina Shadow', cursive;
+  font-size: 260px;
+  letter-spacing: 5px;
+  top: 40%;
+  left: 15%;
+  color: #FFFFFD;
+  text-shadow: 0 0 15px gray;
+  box-shadow: none;
+  position: fixed;
+  z-index: 1
 }
