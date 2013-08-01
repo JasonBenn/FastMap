@@ -12,5 +12,5 @@
 
 <p>This app was built in Ruby and Sinatra using the Google Maps API, jQuery animations, and object-oriented JavaScript.</p>
 
-<h1><a href="http://maptime.herokuapp.com/about">Go to app!</a></h1>
+<h1><a href="http://maptime.herokuapp.com">Go to app!</a></h1>
 Or, go to the <a href="http://maptime.herokuapp.com/about">about page</a>, featuring the above explanation with more animated GIFs.
